@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>华体会 · 轻量导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+            background-color: #f5f6f8;
+            color: #2c3e50;
+            line-height: 1.6;
+            padding: 2rem 1.5rem;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* --- 导航 --- */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            padding: 1rem 1.8rem;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            border: 1px solid #eaeef2;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-brand {
+            font-weight: 500;
+            font-size: 1.2rem;
+            letter-spacing: 0.02em;
+            color: #1f2a3a;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5b6e;
+            font-size: 0.95rem;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #1f2a3a;
+            border-bottom-color: #8899aa;
+        }
+
+        /* --- hero 区 --- */
+        .hero {
+            background: #fff;
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            margin-bottom: 2.8rem;
+            border: 1px solid #e8edf2;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.75rem;
+            color: #1f2937;
+        }
+
+        .hero .sub {
+            font-size: 1rem;
+            color: #5b6f83;
+            max-width: 680px;
+            margin-bottom: 1.8rem;
+        }
+
+        .hero .intro-text {
+            background: #f8fafc;
+            padding: 1.2rem 1.6rem;
+            border-radius: 16px;
+            border-left: 3px solid #bcc9d6;
+            color: #2f4050;
+            font-size: 0.98rem;
+        }
+
+        .hero .intro-text a {
+            color: #1f2a3a;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: #bcc9d6;
+            font-weight: 500;
+        }
+
+        /* --- 三个场景模块 --- */
+        .scenes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
+            margin-bottom: 2.8rem;
+        }
+
+        .scene-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 2rem 1.6rem 1.8rem;
+            border: 1px solid #e5eaef;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .scene-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+        }
+
+        .scene-card h3 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+            color: #1f2a3a;
+        }
+
+        .scene-card .badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            background: #eef2f6;
+            padding: 0.15rem 0.7rem;
+            border-radius: 30px;
+            color: #4a5b6e;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.02em;
+        }
+
+        .scene-card p {
+            font-size: 0.92rem;
+            color: #405362;
+            margin-bottom: 0.6rem;
+        }
+
+        .scene-card .meta {
+            font-size: 0.85rem;
+            color: #778a9c;
+            border-top: 1px solid #eef2f6;
+            padding-top: 0.8rem;
+            margin-top: 0.3rem;
+        }
+
+        /* --- FAQ 摘要 / 说明区 --- */
+        .faq-section {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2.2rem 2.5rem;
+            border: 1px solid #e5eaef;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+            margin-bottom: 2.8rem;
+        }
+
+        .faq-section h2 {
+            font-weight: 500;
+            font-size: 1.35rem;
+            margin-bottom: 1.5rem;
+            color: #1f2a3a;
+        }
+
+        .faq-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eef2f6;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-q {
+            font-weight: 500;
+            color: #1f2a3a;
+            margin-bottom: 0.2rem;
+        }
+
+        .faq-a {
+            font-size: 0.92rem;
+            color: #4a5b6e;
+        }
+
+        .faq-a a {
+            color: #1f2a3a;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            text-decoration-color: #bcc9d6;
+        }
+
+        /* --- 底部收藏提示 --- */
+        .footer-note {
+            background: #f8fafc;
+            border-radius: 18px;
+            padding: 1.6rem 2rem;
+            border: 1px solid #e5eaef;
+            text-align: center;
+            color: #4a5b6e;
+            font-size: 0.93rem;
+        }
+
+        .footer-note span {
+            background: #eef2f6;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: #1f2a3a;
+            display: inline-block;
+            margin: 0.3rem 0.2rem;
+        }
+
+        /* --- 响应式 --- */
+        @media (max-width: 860px) {
+            .scenes {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero {
+                padding: 2rem 1.5rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1.2rem 1rem;
+            }
+            .nav {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.8rem;
+                padding: 1rem 1.2rem;
+            }
+            .nav-links {
+                justify-content: center;
+                gap: 1.2rem;
+            }
+            .scenes {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .faq-section {
+                padding: 1.5rem 1.2rem;
+            }
+            .hero .intro-text {
+                font-size: 0.92rem;
+                padding: 1rem 1.2rem;
+            }
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- 顶栏导航 -->
+    <nav class="nav">
+        <div class="nav-brand">轻导航 · 常回来</div>
+        <div class="nav-links">
+            <a href="#intro">首页</a>
+            <a href="#scenes">场景</a>
+            <a href="#faq">说明</a>
+            <a href="#">收藏</a>
+        </div>
+    </nav>
+
+    <!-- hero 与核心介绍 -->
+    <div class="hero" id="intro">
+        <h1>再次访问的角落</h1>
+        <div class="sub">不追求信息轰炸，只希望你在需要时，能轻松回到这里。</div>
+        <div class="intro-text">
+            有些页面值得反复打开，有些内容值得持续留意。  
+            这个站点为那些希望保持关注的人准备——你可以随时回来看看，  
+            它一直在，节奏由你决定。  
+            如果你还没有收藏，或许现在就可以把 <a href="https://indexhth.com.cn">华体会</a> 放进书签栏，  
+            下次就多一条熟悉的小路。
+        </div>
+    </div>
+
+    <!-- 三个场景模块 -->
+    <div class="scenes" id="scenes">
+        <div class="scene-card">
+            <h3>🍃 偶尔回来</h3>
+            <div class="badge">场景一</div>
+            <p>隔一段时间再看，常会有一些细微的变化。不需要每天盯着，记得有这么个地方就好。</p>
+            <div class="meta">适合：周更习惯 · 轻浏览</div>
+        </div>
+        <div class="scene-card">
+            <h3>📎 保持收藏</h3>
+            <div class="badge">场景二</div>
+            <p>把链接留在收藏夹里，就像在书里夹一片叶子。某天翻到，顺着就回来了，不用重新搜索。</p>
+            <div class="meta">适合：信息整理 · 长期关注</div>
+        </div>
+        <div class="scene-card">
+            <h3>🧩 持续留意</h3>
+            <div class="badge">场景三</div>
+            <p>有些内容不需要马上读完，但值得留在视野边缘。偶尔点开，保持一种淡淡的了解。</p>
+            <div class="meta">适合：兴趣延伸 · 静默跟进</div>
+        </div>
+    </div>
+
+    <!-- FAQ 摘要 / 常见说明 -->
+    <div class="faq-section" id="faq">
+        <h2>一些常见说明</h2>
+
+        <div class="faq-item">
+            <div class="faq-q">这个页面是一直更新的吗？</div>
+            <div class="faq-a">大体上保持稳定，但内容会随着时间调整。如果你隔一段回来，可能会看到不一样的表述或模块。它不是一个静态公告板，而是一个持续梳理的笔记式页面。</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q">我该怎样记住这个地址？</div>
+            <div class="faq-a">最好的方式是直接收藏到浏览器书签。如果你习惯用备忘录，也可以把 <a href="https://indexhth.com.cn">华体会</a> 记在随手能翻到的地方。地址不难记，但收藏更可靠。</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q">为什么强调“再次访问”与“持续关注”？</div>
+            <div class="faq-a">因为很多好内容只被看了一次，就被遗忘在时间线里。这个页面希望成为一种“轻锚点”——不强迫你每天来，但当你想起时，它还在。</div>
+        </div>
+    </div>
+
+    <!-- 底部收藏提示 -->
+    <div class="footer-note">
+        <span>📌</span> 如果你觉得这里值得留个记号，现在就可以把链接收藏起来。  
+        下一次想回来的时候，就不必翻找历史记录。
+    </div>
+
+</div>
+</body>
+</html>
