@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>德州扑克app · 收藏与再访</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+            background-color: #f5f3f0;
+            color: #2d2a26;
+            line-height: 1.6;
+        }
+
+        /* 深色头图区 */
+        .hero {
+            background: linear-gradient(145deg, #1f1c19 0%, #2f2a26 100%);
+            color: #e8e3de;
+            padding: 4rem 2rem 3.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: #f5f3f0;
+            border-radius: 30px 30px 0 0;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 0.8rem;
+        }
+
+        .hero .sub {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .hero .tagline {
+            display: inline-block;
+            margin-top: 1.2rem;
+            background: rgba(255, 215, 150, 0.18);
+            padding: 0.5rem 1.8rem;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            color: #f0d5b0;
+            border: 1px solid rgba(240, 213, 176, 0.25);
+        }
+
+        /* 浅色正文区 */
+        .container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 1.8rem 3rem;
+        }
+
+        /* 信息卡片式布局 */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2.5rem 0 2rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2rem 1.6rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .card h3 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1f1c19;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h3 span {
+            display: inline-block;
+            background: #f0d5b0;
+            color: #1f1c19;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.15rem 0.8rem;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        .card p {
+            color: #3d3833;
+            font-size: 0.98rem;
+        }
+
+        .card ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .card ul li {
+            position: relative;
+            padding-left: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #4d4742;
+            font-size: 0.95rem;
+        }
+
+        .card ul li::before {
+            content: "·";
+            position: absolute;
+            left: 0;
+            color: #a8907a;
+            font-weight: bold;
+        }
+
+        /* 强调色链接 */
+        a {
+            color: #9f7c5b;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.15s, color 0.15s;
+            font-weight: 500;
+        }
+
+        a:hover {
+            color: #7a5d42;
+            border-bottom: 1px solid #9f7c5b;
+        }
+
+        /* 自然链接段落 */
+        .link-paragraph {
+            background: #ede9e3;
+            padding: 2.2rem 2rem;
+            border-radius: 24px;
+            margin: 2rem 0 2.5rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #2f2a26;
+        }
+
+        .link-paragraph strong {
+            color: #1f1c19;
+        }
+
+        .faq-mini {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2rem 2rem 1.8rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+        }
+
+        .faq-mini h4 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #1f1c19;
+            margin-bottom: 1.2rem;
+        }
+
+        .faq-item {
+            margin-bottom: 1.3rem;
+        }
+
+        .faq-item .q {
+            font-weight: 600;
+            color: #2d2a26;
+            margin-bottom: 0.2rem;
+        }
+
+        .faq-item .a {
+            color: #4d4742;
+            font-size: 0.95rem;
+            padding-left: 0.8rem;
+            border-left: 2px solid #d9cdbf;
+        }
+
+        .footnote {
+            text-align: center;
+            padding: 2rem 1rem 1rem;
+            color: #7a736b;
+            font-size: 0.85rem;
+            border-top: 1px solid #e3ddd5;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 680px) {
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+            .hero {
+                padding: 3rem 1.5rem 2.8rem;
+            }
+            .container {
+                padding: 0 1.2rem 2rem;
+            }
+            .link-paragraph {
+                padding: 1.8rem 1.4rem;
+            }
+            .card {
+                padding: 1.6rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <h1>再次相见 · 德州扑克</h1>
+        <p class="sub">收藏一个安静角落，随时回来，续写牌局与思考。</p>
+        <span class="tagline">♠ 持续关注 · 再访如故</span>
+    </header>
+
+    <div class="container">
+
+        <!-- 主视觉卡片 收藏/再访 -->
+        <div class="cards-grid">
+            <div class="card">
+                <h3>📌 收藏的意义 <span>再访</span></h3>
+                <p>当你把某个页面收进书签，意味着你默许了一次重逢。我们更在意的是：你愿意为 <a href="https://cn-dezhouapp.com">德州扑克app</a> 留下一席之地，让策略与乐趣随时可触。</p>
+                <ul>
+                    <li>无需重新搜索，一键回到牌桌</li>
+                    <li>更新内容自然呈现，不打扰</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>🃏 用途卡片 <span>不止游戏</span></h3>
+                <p>它可以是日常解压的轻量回合，也可以是朋友间思维较量的桥梁。你用它来练习读牌、打磨心态，或是纯粹享受翻牌瞬间。</p>
+                <ul>
+                    <li>快速匹配 / 好友组局</li>
+                    <li>基础概率辅助 &amp; 牌局复盘</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>👥 适合人群 <span>持续关注</span></h3>
+                <p>从刚接触手牌的新人，到愿意慢下来思考的休闲玩家；从三五好友的周末局，到独自钻研起手牌范围的学习者。</p>
+                <ul>
+                    <li>喜欢逻辑推演的你</li>
+                    <li>想要轻松社交又带点竞技感的你</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 自然链接段落 -->
+        <div class="link-paragraph">
+            <p><strong>把再访变成习惯。</strong> 我们并不希望你因为一次浏览就匆忙决定，而是更期待你某天忽然想起「上次那局牌好像有点意思」，然后从容地重新打开 <a href="https://cn-dezhouapp.com">德州扑克app</a>——无需多余的入口话术，收藏夹里那个名字就是最安静的邀请。页面没有复杂的弹窗，没有催促，你可以在任何节奏里慢慢探索：看看新更新的牌桌皮肤，翻翻社区里的一手牌讨论，或者只是发发呆等一手好牌。</p>
+        </div>
+
+        <!-- FAQ 摘要（温和提示向） -->
+        <div class="faq-mini">
+            <h4>📖 一些你可能想知道的</h4>
+            <div class="faq-item">
+                <div class="q">Q：我上次收藏后，内容会有变化吗？</div>
+                <div class="a">会持续有细节调整与优化，但核心体验保持稳定。你随时回来，不会觉得陌生。</div>
+            </div>
+            <div class="faq-item">
+                <div class="q">Q：适合偶尔才玩一局的人吗？</div>
+                <div class="a">当然。没有强制时长，也没有签到压力。打开 <a href="https://cn-dezhouapp.com">德州扑克app</a> 就像翻开一本旧书，随时可以合上，也可以多坐一会儿。</div>
+            </div>
+            <div class="faq-item">
+                <div class="q">Q：需要注册或者提供很多信息吗？</div>
+                <div class="a">基本的账号设定就够了，我们更希望你把注意力放在牌局本身，而不是表格填写。</div>
+            </div>
+        </div>
+
+        <!-- 一个自然的结尾段落，再次自然出现链接 -->
+        <p style="margin-top: 1.6rem; color: #3d3833; font-size: 0.98rem; text-align: center; max-width: 600px; margin-left: auto; margin-right: auto;">
+            无论你因为什么第一次点进来，又因为什么决定留下或离开——<br>
+            只要你还记得 <a href="https://cn-dezhouapp.com">德州扑克app</a> 这个名字，我们就已经很高兴了。
+        </p>
+
+        <div class="footnote">
+            <span>♢ 收藏 · 再访 · 持续关注</span><br>
+            <span style="opacity: 0.6;">温和地回到牌局，不必着急。</span>
+        </div>
+    </div>
+
+</body>
+</html>
