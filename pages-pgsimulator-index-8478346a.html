@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pg模拟器 · 简明指南与访问提醒</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+      background: linear-gradient(145deg, #fbe9d7 0%, #f5d6c6 40%, #ecc7b5 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #3d2c24;
+      line-height: 1.7;
+      padding: 2rem 1.2rem;
+    }
+
+    .page-wrap {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* hero 区 */
+    .hero {
+      text-align: center;
+      padding: 2.8rem 1.5rem 2.5rem;
+      background: rgba(255, 245, 235, 0.65);
+      backdrop-filter: blur(6px);
+      border-radius: 48px 48px 24px 24px;
+      margin-bottom: 2.8rem;
+      box-shadow: 0 12px 28px -8px rgba(140, 90, 70, 0.18);
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: #4e3328;
+      background: linear-gradient(135deg, #653f2e, #8b5e46);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: #5f4234;
+      max-width: 680px;
+      margin: 0 auto 1.2rem;
+      font-weight: 380;
+    }
+
+    .hero .tagline {
+      display: inline-block;
+      background: rgba(220, 180, 155, 0.3);
+      padding: 0.4rem 1.8rem;
+      border-radius: 60px;
+      font-size: 0.95rem;
+      color: #593f31;
+      border: 1px solid rgba(180, 130, 105, 0.2);
+      backdrop-filter: blur(2px);
+      margin-top: 0.5rem;
+    }
+
+    /* 内容卡片通用 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.8rem;
+      margin-bottom: 2.6rem;
+    }
+
+    .card {
+      background: #fffcf8;
+      border-radius: 28px;
+      padding: 1.8rem 1.6rem 2rem;
+      box-shadow: 0 8px 20px rgba(150, 100, 75, 0.10);
+      transition: transform 0.15s ease, box-shadow 0.2s;
+      border: 1px solid rgba(235, 205, 185, 0.5);
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(130, 85, 60, 0.12);
+    }
+
+    .card h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #5c3d2e;
+      border-left: 5px solid #cfaa8f;
+      padding-left: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: #6a4b38;
+      margin: 1.2rem 0 0.4rem;
+    }
+
+    .card p {
+      font-size: 1.02rem;
+      color: #4f382b;
+      margin-bottom: 0.7rem;
+    }
+
+    .card ul {
+      list-style: none;
+      padding-left: 0.2rem;
+      margin: 0.6rem 0 0.8rem;
+    }
+
+    .card ul li {
+      position: relative;
+      padding-left: 1.3rem;
+      margin-bottom: 0.35rem;
+      color: #4b3528;
+    }
+
+    .card ul li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: #b58163;
+      font-size: 0.8rem;
+    }
+
+    /* 大说明卡片 - 纯文本区 */
+    .explain-card {
+      background: #fffaf5;
+      border-radius: 32px;
+      padding: 2.2rem 2rem;
+      margin-bottom: 2.4rem;
+      box-shadow: 0 6px 16px rgba(140, 90, 65, 0.06);
+      border: 1px solid rgba(225, 190, 170, 0.4);
+    }
+
+    .explain-card h2 {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #593b2b;
+      margin-bottom: 1rem;
+      letter-spacing: 0.3px;
+    }
+
+    .explain-card p {
+      margin-bottom: 0.9rem;
+      color: #453025;
+    }
+
+    .warning-note {
+      background: #ffe9dd;
+      padding: 1.4rem 1.6rem;
+      border-radius: 24px;
+      border-left: 6px solid #c68e6f;
+      margin-top: 1.4rem;
+    }
+
+    .warning-note strong {
+      color: #7a4f36;
+      font-weight: 600;
+    }
+
+    /* FAQ摘要 */
+    .faq-mini {
+      background: #fffcf8;
+      border-radius: 28px;
+      padding: 1.8rem 2rem 2rem;
+      margin-bottom: 2.2rem;
+      box-shadow: 0 8px 18px rgba(120, 80, 60, 0.06);
+      border: 1px solid #eddcca;
+    }
+
+    .faq-mini h2 {
+      font-size: 1.5rem;
+      font-weight:500;
+      color: #5c3d2e;
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .faq-item {
+      padding: 0.8rem 0;
+      border-bottom: 1px dashed #e7d4c6;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-q {
+      font-weight: 500;
+      color: #593d2d;
+      font-size: 1.05rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .faq-a {
+      color: #4f382b;
+      padding-left: 0.3rem;
+    }
+
+    /* 底部链接区 */
+    .footer-links {
+      text-align: center;
+      padding: 1.6rem 0.5rem 0.8rem;
+      margin-top: 0.8rem;
+      border-top: 1px solid rgba(170, 130, 105, 0.2);
+    }
+
+    .footer-links p {
+      font-size: 0.95rem;
+      color: #4b3528;
+      margin-bottom: 0.45rem;
+    }
+
+    .footer-links a {
+      color: #7a4f34;
+      text-decoration: none;
+      background: #f2e1d4;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      font-weight: 450;
+      transition: background 0.2s, color 0.15s;
+      border: 1px solid #dbbcac;
+      display: inline-block;
+      margin: 0.15rem 0.2rem;
+    }
+
+    .footer-links a:hover {
+      background: #dbbaa5;
+      color: #2f1f17;
+    }
+
+    .footer-links .link-em {
+      background: #e5cdbb;
+      border-color: #b8896e;
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1.05rem;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      .explain-card {
+        padding: 1.6rem 1.2rem;
+      }
+      .faq-mini {
+        padding: 1.4rem 1.2rem;
+      }
+      .card {
+        padding: 1.4rem 1.2rem;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .hero {
+        padding: 1.8rem 1rem 1.8rem;
+      }
+      .hero h1 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <!-- hero -->
+    <header class="hero">
+      <h1>pg模拟器 · 从入门到顺手</h1>
+      <p>一份不绕弯路的简明指南，帮你快速上手，顺便避开那些容易被忽略的环节。</p>
+      <span class="tagline">📌 访问提醒 &nbsp;·&nbsp; 实用备忘</span>
+    </header>
+
+    <!-- 优势卡 + 场景卡 -->
+    <div class="card-grid">
+      <div class="card">
+        <h2>⚙️ 轻量·直觉</h2>
+        <p>没有复杂配置，也无需漫长等待。打开页面就能感知到它的响应节奏。</p>
+        <ul>
+          <li>界面干净，功能入口一目了然</li>
+          <li>核心操作两步之内完成</li>
+          <li>即便第一次接触，也不会有太多困惑</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>🧩 实用场景</h2>
+        <p>日常调试、功能预览、快速体验——无论哪种需求，它都能提供一个稳定的临时环境。</p>
+        <ul>
+          <li>快速验证想法与逻辑</li>
+          <li>演示与轻量测试</li>
+          <li>适合放在书签栏随时调用</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>📎 访问贴士</h2>
+        <p>使用过程中留意网络和浏览器版本，部分特性可能依赖现代浏览器支持。</p>
+        <ul>
+          <li>建议使用 Chrome / Edge 最新版</li>
+          <li>如遇加载卡顿，可尝试刷新或检查网络</li>
+          <li>页面不会主动收集任何个人信息</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 说明区：简明指南 + 访问提醒 -->
+    <div class="explain-card">
+      <h2>📘 简明指南 &amp; 访问提醒</h2>
+      <p>很多人第一次打开 <a href="https://pages-pgsimulator.com" style="color:#7a4f34; text-decoration: underline; text-underline-offset: 3px; font-weight:450;">pg模拟器</a> 的时候，会好奇它到底能做什么。简单说，它是一个基于浏览器的轻量模拟工具，不需要安装任何本地环境，打开网页就能用。适合用来快速跑一跑简单的逻辑、预览效果，或者当作一个临时的“沙盒”。</p>
+      <p>不过有几点想提前和你说明：模拟器的行为受浏览器自身限制，某些高级或底层特性可能无法完全复现。另外，它更适合短时、轻度的使用场景。如果你需要一个长期稳定的生产环境，还是建议搭配本地工具一起使用。</p>
+      <div class="warning-note">
+        <strong>⚠️ 访问提醒</strong> · 请通过官方渠道访问。不要轻信非官方链接或所谓“加速版”“破解版”。模拟器页面本身只提供基础的模拟功能，不会索要任何隐私权限。如果遇到弹窗或异常跳转，请立刻关闭页面并确认来源。
+      </div>
+      <p style="margin-top:1.2rem; font-size:0.95rem; color:#6b4d3a;">另外，建议定期清理浏览器缓存，尤其是在频繁调试之后。保持页面版本更新，也能获得更稳定的体验。</p>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-mini">
+      <h2>❓ 常见疑问 · 摘要</h2>
+      <div class="faq-item">
+        <div class="faq-q">Q：这个模拟器需要注册或登录吗？</div>
+        <div class="faq-a">不需要。直接通过链接打开即可使用，没有账户系统，也不记录任何行为。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q：手机浏览器可以打开吗？</div>
+        <div class="faq-a">可以，但界面布局针对桌面端优化更多。手机浏览器建议横屏使用，部分交互可能需手动缩放。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q：页面打不开或者显示异常怎么办？</div>
+        <div class="faq-a">先检查网络连接，再尝试使用无痕窗口或换个浏览器。如果仍然无法加载，可能是临时维护，稍后再试。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q：模拟的结果能保存吗？</div>
+        <div class="faq-a">页面本身不提供云端存储。如果需要保留内容，建议手动复制或截图保存。</div>
+      </div>
+    </div>
+
+    <!-- 底部链接 + 说明 -->
+    <footer class="footer-links">
+      <p>📎 直达页面 · <a href="https://pages-pgsimulator.com" class="link-em">pg模拟器</a></p>
+      <p style="font-size:0.85rem; margin-top:0.5rem; color:#6f4f3a;">基于网页的轻量模拟工具 · 保持简洁，保持专注</p>
+    </footer>
+  </div>
+</body>
+</html>
